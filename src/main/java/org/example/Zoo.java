@@ -1,5 +1,4 @@
 package org.example;
-import java.util.*;
 
 public class Zoo {
     public static void logInMenu() {
