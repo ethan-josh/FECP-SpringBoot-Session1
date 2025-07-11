@@ -7,6 +7,8 @@ import org.example.animal.Pachyderm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Helper {
     //===================   FOR SINGLETON CONFIGURATIONS   ================
@@ -36,6 +38,24 @@ public final class Helper {
                     new Pachyderm.Elephant("Dumbo", true, new Enclosure("Pachyderm"))
             )
     );
+
+    public List<Animal> getHealthyElephants() {
+        return animals.stream()
+                .filter(a -> a instanceof Pachyderm.Elephant && a.isHealthy)
+                .collect(Collectors.toList());
+    }
+
+    public List<Animal> getHealthyOwl() {
+        return animals.stream()
+                .filter(a -> a instanceof Bird.Owl && a.isHealthy)
+                .collect(Collectors.toList());
+    }
+
+    public List<Animal> getHealthyLion() {
+        return animals.stream()
+                .filter(a -> a instanceof Feline.Lion && a.isHealthy)
+                .collect(Collectors.toList());
+    }
 
     public boolean isZooOpen = false;
     private final ArrayList<String> tickets = new ArrayList<>();
