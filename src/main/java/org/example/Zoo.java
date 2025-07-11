@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Zoo {
     public static void logInMenu() {
         System.out.println("=== Welcome to Zoo Admin Console ===");
