@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Zoo {
@@ -56,14 +57,32 @@ public class Zoo {
             switch(initOption){
                 case 1: // Go as Admin
                     Scanner adminScanner = new Scanner(System.in);
+                    // Admin validation hardcoded
+                    String userName = "admin";
+                    String passWord = "adminadmin";
+
                     int adminOption = 0;
+
                     logInMenu();
                     System.out.print("Enter username: ");
+                    String userNameInput = adminScanner.next();
+                    if (!Objects.equals(userNameInput, userName)){
+                        System.out.println("Wrong username. Exiting simulation...");
+                        initOption = 4;
+                        break;
+                    }else{
+                        System.out.print("Enter password: ");
+                        String passWordInput = adminScanner.next();
+                        if (!Objects.equals(passWordInput, passWord)){
+                            System.out.println("Wrong password. Exiting simulation...");
+                            initOption = 4;
+                            break;
+                        }
+                    }
                     // Add validation
-                    System.out.print("Enter password: ");
-                    // Add validation
-
                     printAdminMenu();
+
+
                     break;
 
                 case 2: // Go as Visitor
