@@ -197,12 +197,23 @@ public class Zoo {
 
                                 break;
                             case 3: // open zoo
-
-
+                                if (!helper.isZooOpen) {
+                                    helper.isZooOpen = true;
+                                    System.out.println("The Zoo is now open!");
+                                } else {
+                                    System.out.println("The Zoo is already open.");
+                                }
                                 break;
+
                             case 4: // close zoo
-
+                                if (helper.isZooOpen) {
+                                    helper.isZooOpen = false;
+                                    System.out.println("The Zoo is now closed.");
+                                } else {
+                                    System.out.println("The Zoo is already closed.");
+                                }
                                 break;
+
                             case 5: // exit
                                 break;
                         }
