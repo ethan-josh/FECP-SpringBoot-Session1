@@ -1,0 +1,64 @@
+package org.example;
+
+public abstract class Building {
+    private String location;
+    public Building(String buildingType){
+        this.location = buildingType;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+}
+
+class Hospital extends Building{
+    public Hospital () {
+        super("Hospital");
+    }
+}
+
+class Enclosure extends Building{
+    private String speciesType;
+    public Enclosure (String speciesType) {
+        super("Enclosure");
+        this.speciesType = speciesType;
+    }
+
+    public void setSpeciesType(String speciesType) {
+        this.speciesType = speciesType;
+    }
+
+    public String getSpeciesType() {
+        return speciesType;
+    }
+}
+
+abstract class Shop extends Building{
+    public Shop (String buildingType) {
+        super(buildingType);
+    }
+}
+
+class Ticket extends Shop{
+    public Ticket () {
+        super("Ticket");
+    }
+}
+
+class Drink extends Shop{
+    public Drink () {
+        super("Drink");
+    }
+}
+
+class Food extends Shop{
+    public Food () {
+        super("Food");
+    }
+}
+
+class Gift extends Shop{
+    public Gift () {
+        super("Gift");
+    }
+}
