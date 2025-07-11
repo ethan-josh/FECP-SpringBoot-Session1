@@ -1,9 +1,11 @@
 package org.example.animal;
 
+import org.example.Building;
+
 public abstract class Animal {
     protected boolean isHealthy;
     protected String name;
-    protected String location;
+    protected Building location;
 
     public abstract void eat();
     public abstract void sleep();

@@ -1,6 +1,9 @@
 package org.example;
 
 import org.example.animal.Animal;
+import org.example.animal.Bird;
+import org.example.animal.Feline;
+import org.example.animal.Pachyderm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,10 +25,17 @@ public final class Helper {
     }
     //======================================================================
 
-    //  list of animals
-    public final ArrayList<String> lionList = new ArrayList<>(Arrays.asList("Simba", "Mufasa"));
-    public final ArrayList<String> owlList = new ArrayList<>(Arrays.asList("Hedwig", "Big Mama"));
-    public final ArrayList<String> elephantList = new ArrayList<>(Arrays.asList("Tantor", "Dumbo"));
+    //  list of animal
+    public final ArrayList<Animal> animals = new ArrayList<>(
+            Arrays.asList(
+                    new Feline.Lion("Simba", true, new Enclosure("Feline")),
+                    new Feline.Lion("Mufasa", true, new Enclosure("Feline")),
+                    new Bird.Owl("Hedwig", true, new Enclosure("Bird")),
+                    new Bird.Owl("Big Mama", true, new Enclosure("Bird")),
+                    new Pachyderm.Elephant("Tantor", true, new Enclosure("Pachyderm")),
+                    new Pachyderm.Elephant("Dumbo", true, new Enclosure("Pachyderm"))
+            )
+    );
 
     public boolean isZooOpen = false;
     private final ArrayList<String> tickets = new ArrayList<>();
