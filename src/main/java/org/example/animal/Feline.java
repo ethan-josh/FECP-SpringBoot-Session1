@@ -1,5 +1,7 @@
 package org.example.animal;
 
+import org.example.Building;
+
 public class Feline extends Animal {
     @Override
     public void eat() {
@@ -18,28 +20,28 @@ public class Feline extends Animal {
 
     @Override
     public void makeSound() {
-        System.out.println(super.name + " is making a sound.");
+        System.out.println(super.name + " is making a feline sound.");
     }
 
     public static class Tiger extends Feline {
-        public Tiger(boolean isHealthy, String location) {
-            super.name = "Tiger";
+        public Tiger(String name, boolean isHealthy, Building location) {
+            super.name = name;
             super.isHealthy = isHealthy;
             super.location = location;
         }
     }
 
     public static class Lion extends Feline {
-        public Lion(boolean isHealthy, String location) {
-            super.name = "Lion";
+        public Lion(String name, boolean isHealthy, Building location) {
+            super.name = name;
             super.isHealthy = isHealthy;
             super.location = location;
         }
     }
 
     public static class Cheetah extends Feline {
-        public Cheetah(boolean isHealthy, String location) {
-            super.name = "Cheetah";
+        public Cheetah(String name, boolean isHealthy, Building location) {
+            super.name = name;
             super.isHealthy = isHealthy;
             super.location = location;
         }
