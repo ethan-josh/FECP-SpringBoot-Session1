@@ -157,7 +157,7 @@ public class Zoo {
                     break;
 
                 case 2: // Go as Visitor
-                    if (Helper.getInstance().isZooOpen) {
+                    if (!Helper.getInstance().isZooOpen) {
                         System.out.println("Zoo is closed. Please come back next time");
                     } else {
                         Scanner visitorScanner = new Scanner(System.in);
