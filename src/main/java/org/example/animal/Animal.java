@@ -3,7 +3,7 @@ package org.example.animal;
 import org.example.Building;
 
 public abstract class Animal {
-    protected boolean isHealthy;
+    public boolean isHealthy;
     protected String name;
     protected Building location;
 
