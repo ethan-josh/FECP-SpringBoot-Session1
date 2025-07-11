@@ -30,10 +30,16 @@ public abstract class Person {
 
     // ***** Visitor *****
     public static class Visitors extends Person {
-        public Visitors(String name, Building initLocation) {
+        private int age;
+
+        public Visitors(String name, Building initLocation, int age) {
             super(name, initLocation);
+            this.age = age;
         }
 
+        public int getAge() {
+            return age;
+        }
     }
 
     // ***** Manager *****
