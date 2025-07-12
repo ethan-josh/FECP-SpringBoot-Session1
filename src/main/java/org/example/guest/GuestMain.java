@@ -129,7 +129,66 @@ public class GuestMain {
 
     //  ==================  SHOP  ===================================
     private static void visitShop() {
+        HashMap<String, Integer> selectedFoods = new HashMap<>();
+        final int SOFT_DRINK = 30;
+        final int POPCORN = 50;
+        final int PLUSH_TOY = 120;
+        final int KEYCHAIN = 45;
+        int totalAmount = 0;
 
+        while (true) {
+            System.out.println("\n=== Zoo Shop ===");
+            System.out.println("Available Products");
+            System.out.println("1. Soft Drink - ₱30");
+            System.out.println("2. Popcorn - ₱50");
+            System.out.println("3. Plush Toy - ₱120");
+            System.out.println("4. Keychain - ₱45");
+            System.out.println("5. Proceed to Checkout");
+
+            System.out.print("Enter the number of the item you want to buy: ");
+            int chosenFoodIndex = Integer.parseInt(INPUT.nextLine());
+
+            String itemName = null;
+            int itemPrice = 0;
+
+            switch (chosenFoodIndex) {
+                case 1 -> {
+                    itemName = "Soft Drink";
+                    itemPrice = SOFT_DRINK;
+                }
+                case 2 -> {
+                    itemName = "Popcorn";
+                    itemPrice = POPCORN;
+                }
+                case 3 -> {
+                    itemName = "Plush Toy";
+                    itemPrice = PLUSH_TOY;
+                }
+                case 4 -> {
+                    itemName = "Keychain";
+                    itemPrice = KEYCHAIN;
+                }
+                case 5 -> {
+                    break;
+                }
+                default -> {
+                    System.out.println("Invalid option. Please choose again.");
+                    continue;
+                }
+            }
+
+            if (chosenFoodIndex == 5) break;
+
+            selectedFoods.put(itemName, selectedFoods.getOrDefault(itemName, 0) + itemPrice);
+            totalAmount += itemPrice;
+
+            System.out.println("\nSelected:");
+            selectedFoods.forEach((s, n) -> System.out.printf("%s - ₱%d%n", s, n));
+        }
+
+        System.out.println("\n=== Checkout Summary ===");
+        selectedFoods.forEach((s, n) -> System.out.printf("%s - ₱%d%n", s, n));
+        System.out.println("Total Amount: ₱" + totalAmount);
     }
     //  ========================================================================
 }
