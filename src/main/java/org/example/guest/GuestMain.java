@@ -3,6 +3,7 @@ package org.example.guest;
 import org.example.Helper;
 import org.example.animal.Animal;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,20 +16,33 @@ public class GuestMain {
     }
 
     private static void showMainMenu() {
-        System.out.println("What would you like to do?");
-        System.out.println("1. Visit Enclosure");
-        System.out.println("2. Visit Shop");
-        System.out.println("3. Visit Hospital");
-        System.out.println("4. Leave Zoo");
-        System.out.print("Choose an option: ");
+        while (true) {
+            System.out.println("\n=== Attractions ===");
+            System.out.println("What would you like to do?");
+            System.out.println("1. Visit Enclosure");
+            System.out.println("2. Visit Shop");
+            System.out.println("3. Visit Hospital");
+            System.out.println("4. Leave Zoo");
+            System.out.print("Choose an option: ");
 
-        int choice = Integer.parseInt(INPUT.nextLine());
-        switch (choice) {
-            case 1 -> visitEnclosure();
-            default -> System.out.println("Invalid option. Please try again.");
+            int choice = Integer.parseInt(INPUT.nextLine());
+            switch (choice) {
+                case 1 -> visitEnclosure();
+                case 2 -> visitShop();
+                case 4 -> {
+                    break;
+                }
+                default -> System.out.println("Invalid option. Please try again.");
+            }
+
+            if (choice == 4) {
+                System.out.println("\nYou have left the zoo.");
+                break;
+            }
         }
     }
 
+    //  ==================  ENCLOSURE  ===================================
     private static void visitEnclosure() {
         System.out.println("\n=== Zoo Enclosure ===");
         System.out.println("Choose Enclosure:");
@@ -88,7 +102,7 @@ public class GuestMain {
         System.out.printf("Would you like to feed the %s (yes/no): ", selectedAnimal.name);
         String answer = INPUT.nextLine();
 
-        if ("yes".equalsIgnoreCase(answer)) {
+        if (answer.equalsIgnoreCase("yes")) {
             performAnimalActions(selectedAnimal);
         } else {
             performSadAnimalAction(selectedAnimal);
@@ -109,4 +123,13 @@ public class GuestMain {
         animal.makeSound();
         System.out.println();
     }
+    //  ========================================================================
+
+
+
+    //  ==================  SHOP  ===================================
+    private static void visitShop() {
+
+    }
+    //  ========================================================================
 }
