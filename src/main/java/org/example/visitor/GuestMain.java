@@ -1,4 +1,4 @@
-package org.example.guest;
+package org.example.visitor;
 
 import org.example.Helper;
 import org.example.animal.Animal;
@@ -8,15 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GuestMain {
-    private static final Scanner INPUT = new Scanner(System.in);
-    private static final Helper HELPER = Helper.getInstance();
-
-    public static void main(String[] args) {
-        showMainMenu();
-    }
+    private final Scanner INPUT = new Scanner(System.in);
+    private final Helper HELPER = Helper.getInstance();
 
     //  all options for user
-    private static void showMainMenu() {
+    public void showMainMenu() {
         while (true) {
             System.out.println("\n=== Attractions ===");
             System.out.println("What would you like to do?");
@@ -46,7 +42,7 @@ public class GuestMain {
     }
 
     //  ==================  ENCLOSURE  ===================================
-    private static void visitEnclosure() {
+    private void visitEnclosure() {
         System.out.println("\n=== Zoo Enclosure ===");
         System.out.println("Choose Enclosure:");
         System.out.println("1. Pachyderm");
@@ -60,7 +56,7 @@ public class GuestMain {
     }
 
     //  function for displaying the list of animals based on health and species
-    private static void displayAnimalsByEnclosure(int enclosureOption) {
+    private void displayAnimalsByEnclosure(int enclosureOption) {
         //  primary storage for healthy animals
         List<Animal> healthyAnimals;
 
@@ -98,7 +94,7 @@ public class GuestMain {
         promptAnimalSelection(healthyAnimals);
     }
 
-    private static void promptAnimalSelection(List<Animal> animals) {
+    private void promptAnimalSelection(List<Animal> animals) {
         //  list all the healthy animals
         for (int i = 0; i < animals.size(); i++) {
             System.out.printf("%d. %s%n", i + 1, animals.get(i).name);
@@ -148,7 +144,7 @@ public class GuestMain {
 
 
     //  ==================  SHOP  ===================================
-    private static void visitShop() {
+    private void visitShop() {
         //  storage for all the selected items
         HashMap<String, Integer> selectedFoods = new HashMap<>();
 
