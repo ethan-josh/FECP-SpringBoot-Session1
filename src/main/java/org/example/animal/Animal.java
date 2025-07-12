@@ -4,8 +4,8 @@ import org.example.Building;
 
 public abstract class Animal {
     public boolean isHealthy;
-    protected String name;
-    protected Building location;
+    public String name;
+    public Building location;
 
     public abstract void eat();
     public abstract void sleep();
