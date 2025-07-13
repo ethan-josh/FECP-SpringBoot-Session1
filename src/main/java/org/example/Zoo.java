@@ -321,6 +321,7 @@ public class Zoo {
                                                         .findFirst()
                                                         .orElseThrow(() -> new IllegalStateException("No Hospital!"));
                                                 a.location = hosp;
+                                                a.isHealthy = false;
                                                 String ts = LocalDateTime.now()
                                                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                                                 System.out.println("Sending to Hospital...");

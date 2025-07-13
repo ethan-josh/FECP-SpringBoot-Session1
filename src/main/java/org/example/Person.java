@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.animal.Animal;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 public abstract class Person {
     private String name;
     private Building location;
@@ -67,6 +72,31 @@ public abstract class Person {
     public static class Veterinarians extends Person {
         public Veterinarians(String name, Building initLocation) {
             super(name, initLocation);
+        }
+
+        public void lecture() {
+            System.out.println("Dr. " + getName() + " gives a science lecture on animal health and conservation." );
+        }
+
+        public void heal(List<Animal> sickAnimals) {
+            if (sickAnimals.isEmpty())
+                System.out.println("There are no sick animals. All animals are healthy");
+            else {
+                System.out.println("Dr. " + getName() + " begins healing sick animals..." );
+                for(Animal a : sickAnimals) {
+                    System.out.println("✅ Healed: " + a.getName());
+                    // make animal healthy
+                    a.isHealthy = true;
+                    System.out.println(a.getName() + " has been discharged and return to enclosure.");
+                    // set animal's location to their proper enclosure
+                    a.location = Enclosure.getAnimalEnclosureType(a);
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    // remove old record of animal
+                    Helper.getInstance().healedAnimals.remove(a);
+                    // logs cured animals along with their timestamp in a map
+                    Helper.getInstance().healedAnimals.put(a, currentDateTime);
+                }
+            }
         }
     }
 

@@ -5,9 +5,8 @@ import org.example.animal.Bird;
 import org.example.animal.Feline;
 import org.example.animal.Pachyderm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class Helper {
@@ -56,6 +55,16 @@ public final class Helper {
                 .filter(a -> a instanceof Feline.Lion && a.isHealthy)
                 .collect(Collectors.toList());
     }
+
+    // get all animals who are sick and in hospital
+    public List<Animal> getSickAnimals() {
+        return animals.stream()
+                .filter(a ->  !a.isHealthy && a.location instanceof Hospital)
+                .collect(Collectors.toList());
+    }
+
+    // records and stores all animals that were healed along with a timestamp
+    public Map<Animal, LocalDateTime> healedAnimals = new LinkedHashMap<>();
 
     public boolean isZooOpen = false;
     private final ArrayList<String> tickets = new ArrayList<>();
