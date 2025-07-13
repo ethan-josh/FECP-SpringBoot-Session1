@@ -1,8 +1,12 @@
 package org.example;
 
+import org.example.animal.Animal;
 import org.example.visitor.GuestMain;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Zoo {
     public static void logInMenu() {
@@ -248,38 +252,83 @@ public class Zoo {
                                     if (p instanceof Person.Handlers && p.getName().equalsIgnoreCase(handlerName)) {
                                         found = true;
                                         Enclosure assignedEnclosure = (Enclosure) p.getLocation();
-                                        String enclosureType = assignedEnclosure.getSpeciesType();
+                                        // raw name for display:
+                                        String enclosureTypeRaw = assignedEnclosure.getSpeciesType();
+                                        // lowercase for matching:
+                                        String enclosureType    = enclosureTypeRaw.toLowerCase();
 
-                                        System.out.println("--- Animal Duty Menu ---");
+                                        System.out.println("\n--- Animal Duty Menu ---");
                                         System.out.println("Animals assigned to you in " + enclosureType + " Enclosure:");
 
-                                        ArrayList<String> assignedAnimals = new ArrayList<>();
-                                        switch (enclosureType.toLowerCase()) {
+                                        List<Animal> assignedAnimalObjs;
+                                        List<String> assignedAnimals;
+                                        switch (enclosureType) {
                                             case "pachyderm":
-                                                assignedAnimals = helper.elephantList;
+                                                assignedAnimalObjs = helper.getHealthyElephants();
+                                                assignedAnimals    = assignedAnimalObjs.stream().map(Animal::getName).collect(Collectors.toList());
                                                 break;
                                             case "feline":
-                                                assignedAnimals = helper.lionList;
+                                                assignedAnimalObjs = helper.getHealthyLion();
+                                                assignedAnimals    = assignedAnimalObjs.stream().map(Animal::getName).collect(Collectors.toList());
                                                 break;
                                             case "bird":
-                                                assignedAnimals = helper.owlList;
+                                                assignedAnimalObjs = helper.getHealthyOwl();
+                                                assignedAnimals    = assignedAnimalObjs.stream().map(Animal::getName).collect(Collectors.toList());
                                                 break;
                                             default:
-                                                System.out.println("No animals found.");
+                                                assignedAnimalObjs = Collections.emptyList();
+                                                assignedAnimals    = Collections.emptyList();
+                                        }
+
+                                        if (assignedAnimals.isEmpty()) {
+                                            System.out.println("No healthy animals assigned.");
+                                            break;
                                         }
 
                                         for (int i = 0; i < assignedAnimals.size(); i++) {
                                             System.out.println((i + 1) + ". " + assignedAnimals.get(i));
                                         }
 
-                                        System.out.print("Choose animal to interact with (0 to exit): ");
+                                        System.out.print("\nChoose animal number to interact with (0 to exit): ");
                                         int choice = adminScanner.nextInt();
-                                        if (choice > 0 && choice <= assignedAnimals.size()) {
-                                            System.out.println("Interacting with " + assignedAnimals.get(choice - 1) + "...");
-                                        } else {
-                                            System.out.println("Exiting handler module.");
+                                        if (choice <= 0 || choice > assignedAnimalObjs.size()) {
+                                            System.out.println("Finished duties for the day.");
+                                            break;
                                         }
-                                        break;
+
+                                        Animal a = assignedAnimalObjs.get(choice - 1);
+
+                                        System.out.println("\nChoose action:");
+                                        System.out.println("1. Feed " + a.getName());
+                                        System.out.println("2. Exercise " + a.getName());
+                                        System.out.println("3. Examine " + a.getName() + " to Vet");
+                                        System.out.print("Choose an option: ");
+                                        int action = adminScanner.nextInt();
+                                        System.out.println();
+
+                                        switch (action) {
+                                            case 1:
+                                                System.out.println(a.getName() + " is fed");
+                                                break;
+                                            case 2:
+                                                System.out.println(a.getName() + " is exercised");
+                                                break;
+                                            case 3:
+                                                Hospital hosp = helper.getBuildings()
+                                                        .stream()
+                                                        .filter(b -> b instanceof Hospital)
+                                                        .map(b -> (Hospital) b)
+                                                        .findFirst()
+                                                        .orElseThrow(() -> new IllegalStateException("No Hospital!"));
+                                                a.location = hosp;
+                                                String ts = LocalDateTime.now()
+                                                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                                                System.out.println("Sending to Hospital...");
+                                                System.out.println(a.getName() + " admitted at " + ts);
+                                                break;
+                                            default:
+                                                System.out.println("Invalid action. Exiting.");
+                                        }
                                     }
                                 }
 
@@ -288,6 +337,7 @@ public class Zoo {
                                 }
 
                                 break;
+
                             case 3: // open zoo
                                 if (!helper.isZooOpen) {
                                     helper.isZooOpen = true;
