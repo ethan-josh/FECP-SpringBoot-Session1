@@ -11,4 +11,8 @@ public abstract class Animal {
     public abstract void sleep();
     public abstract void roam();
     public abstract void makeSound();
+
+    public String getName() {
+        return name;
+    }
 }
