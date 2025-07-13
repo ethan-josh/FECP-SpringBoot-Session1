@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.animal.*;
+
 public abstract class Building {
     private String location;
     public Building(String buildingType){
@@ -30,6 +32,24 @@ class Enclosure extends Building{
 
     public String getSpeciesType() {
         return speciesType;
+    }
+
+    // get the animal's specific enclosure type
+    public static Building getAnimalEnclosureType (Animal animal) {
+        String enclosure;
+        if (animal instanceof Bird)
+            enclosure = "Bird";
+        else if (animal instanceof Feline)
+            enclosure = "Feline";
+        else if (animal instanceof Pachyderm)
+            enclosure = "Pachyderm";
+        else
+            enclosure = "";
+
+        return Helper.getInstance().getBuildings()
+                .stream()
+                .filter(b -> b instanceof Enclosure && ((Enclosure) b).getSpeciesType().equalsIgnoreCase(enclosure))
+                .findFirst().orElseThrow(() -> new IllegalStateException("No Enclosure!"));
     }
 }
 

@@ -1,11 +1,12 @@
 package org.example.visitor;
 
 import org.example.Helper;
+import org.example.Person;
 import org.example.animal.Animal;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class GuestMain {
     private final Scanner INPUT = new Scanner(System.in);
@@ -26,6 +27,7 @@ public class GuestMain {
             switch (choice) {
                 case 1 -> visitEnclosure();
                 case 2 -> visitShop();
+                case 3 -> visitHospital();
                 case 4 -> {
                     break;
                 }
@@ -222,4 +224,74 @@ public class GuestMain {
         System.out.println("Total Amount: ₱" + totalAmount);
     }
     //  ========================================================================
+
+    //  ==================  HOSPITAL  ===================================
+    private void visitHospital() {
+        int hospitalOption = 0;
+        Scanner hospitalScanner = new Scanner(System.in);
+        // Get available veterinarian
+        Optional<Person> veterinarian =  HELPER.getPerson().stream().filter(p -> p instanceof Person.Veterinarians).findFirst();
+        while(hospitalOption != 5){
+            printHospitalMenu();
+            hospitalOption = hospitalScanner.nextInt();
+            System.out.println();
+            List <Animal> sickAnimals;
+            switch (hospitalOption) {
+                case 1: //View Sick Animals
+                    sickAnimals = HELPER.getSickAnimals();
+                    if (sickAnimals.isEmpty()) {
+                        System.out.println("There are no sick animals");
+                    } else {
+                        //Print all sick animals
+                        System.out.println("🐾 Sick Animals Currently in Hospital:");
+                        sickAnimals.forEach(a -> System.out.println("- " + a.getName()));
+                    }
+                    break;
+                case 2: //View Healed Animals
+                    if (HELPER.healedAnimals.isEmpty()) {
+                        System.out.println("No animals have been healed today");
+                    } else {
+                        System.out.println("🩺 Healed Animals with Timestamps:");
+                        // readable date and time format
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("(yyyy-MM-dd HH:mm:ss)");
+                        for (Map.Entry<Animal, LocalDateTime> entry: HELPER.healedAnimals.entrySet())
+                        {
+                            //print healed animals and the time they were cured
+                            System.out.println("- " + entry.getKey().getName() + " ✅ " + entry.getValue().format(formatter));
+                        }
+                    }
+                    break;
+                case 3: //Attend Science Lecture
+                    if(veterinarian.isPresent()) {
+                        ((Person.Veterinarians)veterinarian.get()).lecture();
+                    } else {
+                        System.out.println("There is no veterinarian available at the moment");
+                    }
+                    break;
+                case 4: //Heal Animals (Veterinarian)
+                    sickAnimals = HELPER.getSickAnimals();
+                    if(veterinarian.isPresent()) {
+                        ((Person.Veterinarians)veterinarian.get()).heal(sickAnimals);
+                    } else {
+                        System.out.println("There is no veterinarian available at the moment");
+                    }
+                    break;
+                case 5: //Exit
+                    System.out.println("Exiting Zoo Vet Hospital. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    public static void printHospitalMenu(){
+        System.out.println("\n=== 🏥 Zoo Visitor Hospital Monitor ===");
+        System.out.println("1. View Sick Animals");
+        System.out.println("2. View Healed Animals");
+        System.out.println("3. Attend Science Lecture");
+        System.out.println("4. Heal Animals (Veterinarian)");
+        System.out.println("5. Exit");
+        System.out.print("Choose an option: ");
+    }
 }
