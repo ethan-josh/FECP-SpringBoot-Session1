@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.visitor.GuestMain;
+
 import java.util.*;
 
 public class Zoo {
@@ -29,12 +31,15 @@ public class Zoo {
         System.out.print("Would you like to buy a ticket? (yes/no): ");
     }
     public static void printVisitorMenu(){
-        System.out.println("What would you like to do?");
-        System.out.println("1. Visit Enclosure");
-        System.out.println("2. Visit Shop");
-        System.out.println("3. Visit Hospital");
-        System.out.println("4. Leave Zoo");
-        System.out.print("Choose an option: ");
+//        System.out.println("What would you like to do?");
+//        System.out.println("1. Visit Enclosure");
+//        System.out.println("2. Visit Shop");
+//        System.out.println("3. Visit Hospital");
+//        System.out.println("4. Leave Zoo");
+//        System.out.print("Choose an option: ");
+
+        GuestMain guestMain = new GuestMain();
+        guestMain.showMainMenu();
     }
 
     public static void initUserChoice() {
