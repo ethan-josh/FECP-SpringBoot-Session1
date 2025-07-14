@@ -67,6 +67,7 @@ public final class Helper {
     public Map<Animal, LocalDateTime> healedAnimals = new LinkedHashMap<>();
 
     public boolean isZooOpen = false;
+    public boolean setUpDone = false;
     private final ArrayList<String> tickets = new ArrayList<>();
     private final ArrayList<Building> buildings = new ArrayList<>();
     private final ArrayList<Person> person = new ArrayList<>();
