@@ -200,7 +200,6 @@ public class Zoo {
                         }
                     }
                     int adminAction = 0;
-                    boolean setUpDone = false;
                     while (adminAction != 5){
                         printAdminMenu();
                         adminAction = adminScanner.nextInt();
@@ -226,7 +225,7 @@ public class Zoo {
                                 System.out.print("Enter Vendor for Gift Shop: ");
                                 String giftVendorName = adminScanner.next();
                                 System.out.println("Zoo staff setup complete.");
-                                setUpDone = true;
+                                helper.setUpDone = true;
 
                                 helper.addPerson(new Person.Managers(managerName, null));
                                 helper.addPerson(new Person.Veterinarians(vetName, hospital));
@@ -239,7 +238,7 @@ public class Zoo {
                                 helper.addPerson(new Person.Vendors(giftVendorName, giftShop));
                                 break;
                             case 2: // access handler module
-                                if (!setUpDone){
+                                if (!helper.setUpDone){
                                     System.out.println("Please setup Zoo staff first.");
                                     break;
                                 }
